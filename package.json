@@ -4,6 +4,11 @@
   "files": [
     "dist/*"
   ],
+  "license": "ISC",
+  "repository": {
+    "url": "https://github.com/Halo-Lab/vue-form-getform-io",
+    "type": "git"
+  },
   "exports": {
     ".": "./dist/vue-form-getform-io.es.js",
     "./styles": "./dist/style.css"
