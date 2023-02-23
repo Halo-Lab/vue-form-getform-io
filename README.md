@@ -64,7 +64,7 @@ import {
 
 ```sh
 <style>
-@import "@halo-lab/vue-form-getform-io";
+@import "@halo-lab/vue-form-getform-io/styles";
 </style>
 ```
 
