@@ -3,7 +3,7 @@
     :class="['form', { [className]: className }]" 
     @submit.prevent="() => onSubmit(submitHandler)" 
     novalidate
-    >
+  >
       <slot />
   </form>
 </template>
@@ -18,7 +18,6 @@ export default {
       required: true,
     },
     initialValues: {
-      required: true,
       type: Object,
     },
     className: {
@@ -41,6 +40,7 @@ export default {
     provide('registerField', registerField);
     provide('getFieldError', getFieldError);
     provide('hasFormErrors', hasFormErrors);
+    
     return { onSubmit };
   },
 };

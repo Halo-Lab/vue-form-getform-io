@@ -1,12 +1,14 @@
 <template>
   <button 
     :type="type" 
-    :class="['button',
+    :class="[
+      'button',
       {
         [`button-${isStroke ? 'stroked' : 'filled'}`]: true,
         'button-arrow': isArrow,
         [className]: className
-      }]" 
+      }
+    ]" 
     :disabled="disabled"
   >
     {{ label }}
@@ -47,9 +49,7 @@ export default {
     const hasFormErrors = inject('hasFormErrors');
     const disabled = computed(() => (hasFormErrors() || isDisabled) || isDisabled);
 
-    return {
-      disabled
-    }
+    return { disabled };
   }
 }
 </script>

@@ -1,18 +1,20 @@
 <template>
-  <input
-    :class="{ 
-      'input': true, 
-      'input-error': error, 
-      [className]: className, 
-      [errorClassName]: error && errorClassName 
-      }"
+  <input 
+    :class="{
+      'input': true,
+      'input-error': error,
+      [className]: className,
+      [errorClassName]: error && errorClassName
+      }" 
     :placeholder="placeholder" 
     :type="type" 
     :disabled="isDisabled" 
-    :name="name" v-model.trim="value"
+    :name="name" 
+    v-model.trim="value"
     @input="(e) => $emit('update:value', e.target.value)" 
     @blur="onBlur" 
-    @focus="onFocus" />
+    @focus="onFocus" 
+  />
 </template>
 
 <script>
@@ -20,12 +22,8 @@ import { inject } from 'vue';
 export default {
   props: {
     validator: {
-      type: String,
-      default: "",
-      validator: (value) =>
-        value
-          .split("|")
-          .every((val) => ["required", "onlyLetters", "email"].includes(val)),
+      type: Array,
+      default: null,
     },
     placeholder: {
       type: String,
@@ -57,9 +55,7 @@ export default {
     const onBlur = () => validate();
     const onFocus = () => resetError(name);
 
-    return {
-      value, error, onBlur, onFocus
-    }
+    return { value, error, onBlur, onFocus };
   }
 };
 </script>

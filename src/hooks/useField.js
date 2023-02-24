@@ -16,12 +16,13 @@ export const useField = (name, setFieldValue, getFieldValue) => {
   });
   const error = ref(false);
 
-  const validate = async (validators, callBack) => {
+  const validate = (validators, callBack) => {
     if (validators) {
-      for (let validator of validators) {
-        const errorMassage = isValidField(validator, name, value.value);
+      for (const validator of validators) {
+          const { name: key, message, value: parameter } = validator;
+        const errorMassage = isValidField(key, name, value.value, parameter);
         if (errorMassage) {
-          setError(error, name, errorMassage, callBack);
+          setError(error, name, (message || errorMassage), callBack);
           return;
         }
       }

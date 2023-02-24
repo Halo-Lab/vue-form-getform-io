@@ -1,6 +1,4 @@
-import { ref, reactive, computed } from "vue";
-
-import isValidField from "@/helpers";
+import { reactive } from "vue";
 
 import { useField } from "./useField";
 
@@ -21,15 +19,15 @@ export const useForm = (initialValues, formId) => {
 
   const hasFormErrors = () => Object.values(errors).some((error) => !!error);
 
-  const registerField = (name, validatorString) => {
+  const registerField = (name, validator) => {
     const {
       value,
       error,
       validate: fieldValidate,
       resetError: fieldResetError,
     } = useField(name, setFieldValue, getFieldValue);
-    const validators = validatorString?.split("|");
-    const validate = () => fieldValidate(validators, setFieldError);
+    
+    const validate = () => fieldValidate(validator, setFieldError);
 
     const resetError = () => fieldResetError(setFieldError);
 
@@ -59,9 +57,11 @@ export const useForm = (initialValues, formId) => {
     }
     const URL = "https://getform.io/f/";
     const formData = new FormData();
+      
     for (let key in formState) {
       formData.append(key, formState[key]);
     }
+    
     try {
       await fetch(`${URL}${formId}`, {
         method: "POST",

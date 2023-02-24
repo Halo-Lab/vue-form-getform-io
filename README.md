@@ -70,11 +70,11 @@ import {
 
 - Form accepts parameters 
     - required `:formId` (the id of your form on getform)
-    - required `:initialValues` - the initial values for the form 
+    - optional `:initialValues` - the initial values for the form 
         ```sh
-        {field name: initial value}
+        {<field name>: <initial value>}
         ```
-    - optional parameter `onCustomSubmit` - your custom submit handler
+    - optional parameter `submitHandler` - your custom submit handler (will be resposible for submitting the form on your platform, should get values of the form)
     - optional parameter `className` - class name for custom styling
 
 - Label accepts parameters 
@@ -87,7 +87,8 @@ import {
     - required `placeholder`
     - required `type`
     - required `name`
-    - optional `validator` - the string in form of `value` or `value1|value2`. Validators may be `required`, `email`, `onlyLetters` or combination e.g. `onlyLetters|required`
+    - optional `validator` - the array of objects in form of `[name: <validatorKey>, message<optional>: <validatorMessage>, parameter<required for max, min, maxLength, minLength, regexp>: <validatorValue>`. 
+    Validator names may be `required`, `email`, `number`, `maxLength`, `minLength`, `max`, `min` and `regexp`. For example: `[{name: "required"}, {name: "email", message: "Please, enter a valid email"}, {name: "max", message: "should be a number!", value: 6}, {name: regexp, value: /^[0-9]*$/}]`.
     - optional parameter `className` - class name for custom styling
 
 - Button  accepts parameters: 

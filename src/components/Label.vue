@@ -56,11 +56,9 @@ export default {
     const { name } = props;
     const tooltipShow = ref(false);
     const getFieldError = inject('getFieldError');
-    const errorMessage = computed(() => getFieldError(name))
+    const errorMessage = computed(() => getFieldError(name));
 
-    return {
-      tooltipShow, imageUrl, errorMessage
-    }
+    return { tooltipShow, imageUrl, errorMessage };
   },
 };
 </script>

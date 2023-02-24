@@ -1,7 +1,7 @@
 <template>
   <textarea 
     :class="{ 
-      'input': true, 
+      'input input-textarea': true, 
       'input-error': error, 
       [className]: className, 
       [errorClassName]: error && errorClassName 
@@ -12,7 +12,8 @@
     :disabled="isDisabled"
     @blur="onBlur" 
     @focus="onFocus" 
-    :name="name" />
+    :name="name" 
+  />
 </template>
 
 <script>
@@ -20,12 +21,8 @@ import { inject } from 'vue';
 export default {
   props: {
     validator: {
-      type: String,
-      default: "",
-      validator: (value) =>
-        value
-          .split("|")
-          .every((val) => ["required", "onlyLetters", "email"].includes(val)),
+      type: Array,
+      default: null,
     },
     placeholder: {
       type: String,
@@ -53,9 +50,7 @@ export default {
     const onBlur = () => validate();
     const onFocus = () => resetError(name);
 
-    return {
-      value, error, onBlur, onFocus
-    }
+    return { value, error, onBlur, onFocus };
   }
 };
 </script>

@@ -1,10 +1,12 @@
 <template>
-  <div :class="['tooltip', 
-  {
-    [`tooltip-${type}`]: true, 
-    [`tooltip-${isVisible ? 'visible' : 'hidden'
-      }`]: true, [className]: className
-  }]">
+  <div 
+  :class="['tooltip', 
+    {
+      [`tooltip-${type}`]: true, 
+      [`tooltip-${isVisible ? 'visible' : 'hidden'}`]: true, 
+      [className]: className
+    }]"
+  >
     {{ text }}
   </div>
 </template>
