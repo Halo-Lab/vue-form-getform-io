@@ -1,19 +1,33 @@
 <template>
   <label :class="['input-container']">
-    <span :class="{ 'label': true, [className]: className, 'label-disabled': isDisabled }">{{
-      label
-    }}</span>
-    <slot></slot>
-    <img v-if="errorMessage" :src="imageUrl" alt="Error icon" class="error-icon" @mouseenter="tooltipShow = true"
-      @mouseleave="tooltipShow = false" />
-    <ToolTip :type="'error'" :text="errorMessage" :isVisible="tooltipShow" :className="tooltipClassName" />
+    <span 
+      :class="{ 
+        'label': true, 
+        [className]: className, 
+        'label-disabled': isDisabled 
+      }">
+        {{label}}
+      </span>
+    <slot/>
+    <img v-if="errorMessage" 
+      :src="imageUrl" 
+      alt="Error icon" class="error-icon" 
+      @mouseenter="tooltipShow = true"
+      @mouseleave="tooltipShow = false" 
+    />
+    <ToolTip 
+      :type="'error'" 
+      :text="errorMessage" 
+      :isVisible="tooltipShow" 
+      :className="tooltipClassName" 
+    />
   </label>
 </template>
 
 <script>
+import { ref, inject, computed } from "vue";
 import ToolTip from "./ToolTip.vue";
 import imageUrl from "@/assets/icons/Danger.svg";
-
 export default {
   components: { ToolTip },
   props: {
@@ -37,19 +51,16 @@ export default {
       default: '',
     },
   },
-  inject: {
-    getFieldError: "getFieldError",
-  },
-  data() {
+
+  setup(props) {
+    const { name } = props;
+    const tooltipShow = ref(false);
+    const getFieldError = inject('getFieldError');
+    const errorMessage = computed(() => getFieldError(name))
+
     return {
-      tooltipShow: false,
-      imageUrl,
-    };
-  },
-  computed: {
-    errorMessage() {
-      return this.getFieldError(this.name);
-    },
+      tooltipShow, imageUrl, errorMessage
+    }
   },
 };
 </script>

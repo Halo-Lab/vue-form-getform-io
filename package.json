@@ -12,7 +12,6 @@
   "exports": {
     ".": "./dist/vue-form-getform-io.es.js",
     "./styles": "./dist/style.css"
-
   },
   "sideEffects": [
     "*.css"

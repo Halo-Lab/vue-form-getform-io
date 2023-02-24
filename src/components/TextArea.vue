@@ -1,36 +1,61 @@
 <template>
-  <textarea
-    :class="{ 'input': true, 'input-textarea': true, 'input-error': hasError }"
-    @input="onInput"
-    :placeholder="placeholder"
-    :type="type"
+  <textarea 
+    :class="{ 
+      'input': true, 
+      'input-error': error, 
+      [className]: className, 
+      [errorClassName]: error && errorClassName 
+      }" 
+    v-model.trim="value"
+    @input="(e) => $emit('update:value', e.target.value)" 
+    :placeholder="placeholder" 
     :disabled="isDisabled"
-    @blur="onBlur"
-    @focus="onFocuse"
-    :name="name"
-    :value="value"
-  />
+    @blur="onBlur" 
+    @focus="onFocus" 
+    :name="name" />
 </template>
 
 <script>
-import inputMixin from "../mixins/inputMixin";
+import { inject } from 'vue';
 export default {
-  inject: {
-    setFieldValidator: "setFieldValidator",
-    resetError: "resetError",
-    setFormState: "setFormState",
-    getFormState: "getFormState",
-    getFieldError: "getFieldError",
-    checkFieldError: "checkFieldError",
-  },
-  mixins: [inputMixin],
-  computed: {
-    hasError() {
-      return this.getFieldError(this.name);
+  props: {
+    validator: {
+      type: String,
+      default: "",
+      validator: (value) =>
+        value
+          .split("|")
+          .every((val) => ["required", "onlyLetters", "email"].includes(val)),
     },
-    value() {
-      return this.getFormState(this.name);
+    placeholder: {
+      type: String,
     },
+    isDisabled: {
+      type: Boolean,
+    },
+    name: {
+      type: String,
+      requiered: true,
+    },
+    className: {
+      type: String,
+      default: ''
+    },
+    errorClassName: {
+      type: String,
+      default: ''
+    }
   },
+  setup(props) {
+    const { name, validator } = props;
+    const registerField = inject('registerField');
+    const { value, error, validate, resetError } = registerField(name, validator);
+    const onBlur = () => validate();
+    const onFocus = () => resetError(name);
+
+    return {
+      value, error, onBlur, onFocus
+    }
+  }
 };
 </script>

@@ -1,11 +1,12 @@
 <template>
-  <button
-    :type="type"
+  <button 
+    :type="type" 
     :class="['button',
-    { [`button-${isStroke ? 'stroked' : 'filled'}`]: true,
-    'button-arrow' : isArrow,
-    [className]:  className
-    }]"
+      {
+        [`button-${isStroke ? 'stroked' : 'filled'}`]: true,
+        'button-arrow': isArrow,
+        [className]: className
+      }]" 
     :disabled="disabled"
   >
     {{ label }}
@@ -13,6 +14,7 @@
 </template>
 
 <script>
+import { inject, computed } from 'vue';
 export default {
   props: {
     isStroke: {
@@ -40,17 +42,14 @@ export default {
       default: ''
     }
   },
-  inject: {
-    hasFormErrors: {
-      hasFormErrors: null,
-    },
-  },
-  computed: {
-    disabled() {
-      return this.hasFormErrors
-        ? this.isDisabled || this.hasFormErrors()
-        : this.isDisabled;
-    },
-  },
-};
+  setup(props) {
+    const { isDisabled } = props;
+    const hasFormErrors = inject('hasFormErrors');
+    const disabled = computed(() => (hasFormErrors() || isDisabled) || isDisabled);
+
+    return {
+      disabled
+    }
+  }
+}
 </script>

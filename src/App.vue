@@ -1,8 +1,9 @@
 <template>
   <main class="container">
-    <Form :formId="apiKey" :initialValues="{ name: '', email: '', message: '' }">
-      <Label label="Your Name" name="name" className="labelMy">
-        <Input className="inputMy" errorClassName="error" type="text" placeholder="Your Name" name="name" validator="required|onlyLetters" />
+    <Form :formId="apiKey" :initialValues="{ name: '' }">
+      <Label label="Your Name" name="name">
+        <Input className="inputMy" errorClassName="error" type="text" placeholder="Your Name" name="name"
+          validator="required|onlyLetters" :yup="yup.string().min(6, 'Must be at least 6 characktes')" />
       </Label>
       <Label label="Email Address" name="email">
         <Input placeholder="Email Address" type="email" name="email" validator="required|email" />
@@ -23,6 +24,7 @@ import {
   TextArea,
   Button
 } from './components';
+import * as yup from 'yup';
 export default {
   components: {
     Form,
@@ -32,10 +34,20 @@ export default {
     Button,
   },
   data() {
-    const API_KEY = import.meta.env.VITE_API_FORM_KEY
+    const API_KEY = import.meta.env.VITE_API_FORM_KEY;
     return {
-      apiKey: API_KEY
+      apiKey: API_KEY,
+      yup
     }
+  },
+  methods: {
+    // validate(value) {
+    //   console.log(value)
+    //   if (value.length < 6) {
+    //     return 'Minimum length is 6 chars'
+    //   }
+    //   return ''
+    // }
   }
 };
 </script>
