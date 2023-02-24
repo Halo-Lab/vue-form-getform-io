@@ -88,7 +88,17 @@ import {
     - required `type`
     - required `name`
     - optional `validator` - the array of objects in form of `[name: <validatorKey>, message<optional>: <validatorMessage>, parameter<required for max, min, maxLength, minLength, regexp>: <validatorValue>`. 
-    Validator names may be `required`, `email`, `number`, `maxLength`, `minLength`, `max`, `min` and `regexp`. For example: `[{name: "required"}, {name: "email", message: "Please, enter a valid email"}, {name: "max", message: "should be a number!", value: 6}, {name: regexp, value: /^[0-9]*$/}]`.
+    Validator names may be:
+    - `required`, 
+    - `email`, 
+    - `number`, 
+    - `maxLength` (must be provided value), 
+    - `minLength` (must be provided value), 
+    - `max` (must be provided value), 
+    - `min` (must be provided value),
+    - `regexp (must be provided value)`,
+    - `func` (must be provided value - validation function which return truthy value if error detected, and message for error).
+    For example: `[{name: "required"}, {name: "email", message: "Please, enter a valid email"}, {name: "max", message: "should be a number!", value: 6}, {name: regexp, value: /^[0-9]*$/}]`.
     - optional parameter `className` - class name for custom styling
 
 - Button  accepts parameters: 

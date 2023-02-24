@@ -19,10 +19,13 @@ export const useField = (name, setFieldValue, getFieldValue) => {
   const validate = (validators, callBack) => {
     if (validators) {
       for (const validator of validators) {
-          const { name: key, message, value: parameter } = validator;
-        const errorMassage = isValidField(key, name, value.value, parameter);
+        const { name: key, message, value: parameter } = validator;
+        let errorMassage = isValidField(key, name, value.value, parameter);
         if (errorMassage) {
-          setError(error, name, (message || errorMassage), callBack);
+          if (key === "func") {
+            errorMassage = message;
+          }
+          setError(error, name, message || errorMassage, callBack);
           return;
         }
       }

@@ -20,7 +20,12 @@ const validatorMapper = {
   regexp: isMatch,
 };
 
-export const isValidField = (validatorKey, key, value, parameter) =>
-  validatorMapper[validatorKey]
+export const isValidField = (validatorKey, key, value, parameter) => {
+  if (validatorKey === 'func') {
+    return parameter(value)
+  }
+
+  return validatorMapper[validatorKey]
     ? validatorMapper[validatorKey](value, key, parameter)
     : '';
+};
