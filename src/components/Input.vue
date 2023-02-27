@@ -11,7 +11,6 @@
     :disabled="isDisabled" 
     :name="name" 
     v-model.trim="value"
-    @input="(e) => $emit('update:value', e.target.value)" 
     @blur="onBlur" 
     @focus="onFocus" 
   />

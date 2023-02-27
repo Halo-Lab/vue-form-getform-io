@@ -109,6 +109,11 @@
     align-items: center;
     flex-direction: row;
     margin-right: 20px;
+
+    &.disabled > * {
+      pointer-events: none;
+      opacity: 0.3;
+    }
   }
 }
 
@@ -204,6 +209,7 @@
     height: 24px;
     background-color: #fff;
     border: 2px solid $lightGreyBorder;
+    transition: 0.3s linear;
 
     cursor: pointer;
 
@@ -263,16 +269,21 @@
     min-height: 52px;
     position: relative;
     background: #fff;
-
     border: 1px solid $lightGreyBorder;
     pointer-events: all;
     cursor: pointer;
+    transition: 0.3s linear;
 
     &.input-error, &.input-error:hover {
       border-color: $tomato;
       svg {
         display: none;
       }
+    }
+
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.3;
     }
 
     &:hover {

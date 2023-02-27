@@ -1,7 +1,14 @@
 <template>
-    <label :class="['input-container-box', { [className]: className }]">
-        <input class="hidden" type="checkbox" :disabled="isDisabled" :name="name" v-model="fieldValue" :value="value"
-            @change="(e) => $emit('update:fieldValue', e.target.value)" />
+    <label 
+        :class="['input-container-box', { [className]: className, 'disabled': isDisabled }]">
+        <input 
+            class="hidden" 
+            type="checkbox" 
+            :disabled="isDisabled" 
+            :name="name" 
+            v-model="fieldValue" 
+            :value="value"
+        />
         <span :class="{
             'input input-box input-checkbox': true,
             'input-checkbox-checked': fieldValue.includes(value)

@@ -68,58 +68,112 @@ import {
 </style>
 ```
 
-- Form accepts parameters 
-    - required `:formId` (the id of your form on getform). If `submitHandler` provided, parameter bacomes optional
-    - optional parameter `submitHandler` - your custom submit handler (will be resposible for submitting the form on your platform, should get values of the form)
-    - optional parameter `className` - class name for custom styling
+- Form accepts parameters
 
-- Label accepts parameters 
-    - required `label` - the label text
-    - required `name` - the name of the input current label is for
-    - optional parameter `className` - class name for custom styling
-    - optional parameter `tooltipClassName` - class name for custom styling Tooltip
+  - required `:formId` (string) - the id of your form on getform). If `submitHandler` provided, parameter bacomes optional
+  - optional parameter `submitHandler` (function) - your custom submit handler (will be resposible for submitting the form on your platform, should get values of the form). If not provided, `:formId` is required
+  - optional parameter `className` (string) - class name for custom styling
 
-- Input and TextareaComponent accepts parameters 
-    - required `placeholder`
-    - required `type`
-    - required `name`
-    - optional `validator` - the array of objects in form of `[name: <validatorKey>, message<optional>: <validatorMessage>, parameter<required for max, min, maxLength, minLength, regexp>: <validatorValue>`. 
+- Label accepts parameters
+
+  - required `label` (string) - the label text
+  - required `name`(string) - the name of the input current label is for
+  - optional parameter `className` (string) - class name for custom styling
+  - optional parameter `tooltipClassName` (string) - class name for custom styling Tooltip
+  - optional parameter `isDisabled` (boolean)
+
+- Input and TextareaComponent accepts parameters
+
+  - required `placeholder` (string)
+  - required `type` (string)
+  - required `name` (string)
+  - optional `validator` - the array of objects in form of `[name: <validatorKey>, message<optional>: <validatorMessage>, parameter<required for max, min, maxLength, minLength, regexp>: <validatorValue>`.
     Validator names may be:
-    - `required`, 
-    - `email`, 
-    - `number`, 
-    - `maxLength` (must be provided value), 
-    - `minLength` (must be provided value), 
-    - `max` (must be provided value), 
+    - `required`,
+    - `email`,
+    - `number`,
+    - `maxLength` (must be provided value),
+    - `minLength` (must be provided value),
+    - `max` (must be provided value),
     - `min` (must be provided value),
     - `regexp (must be provided value)`,
     - `func` (must be provided value - validation function which return truthy value if error detected, and message for error).
-    For example: `[{name: "required"}, {name: "email", message: "Please, enter a valid email"}, {name: "max", message: "should be a number!", value: 6}, {name: regexp, value: /^[0-9]*$/}]`.
-    - optional parameter `className` - class name for custom styling
+      For example: `[{name: "required"}, {name: "email", message: "Please, enter a valid email"}, {name: "max", message: "should be a number!", value: 6}, {name: regexp, value: /^[0-9]*$/}]`.
+  - optional patameter `defaultValue` (string) - the default value of the input
+  - optional parameter `className` (string) - class name for custom styling
+  - optional parameter `errorClassName` (string) - class name for custom error state styling
+  - optional parameter `isDisabled` (boolean)
 
-- Button  accepts parameters: 
-    - required `label` - string with text 
-    - `type` - type of the button
-    - optional parameter `className` - class name for custom styling
+- Select accepts parameters:
 
+  - required `name` (string)
+  - required `options` - an array of objects in form of `{label: <display value>, value: <option value>}`
+  - optional `validator` - the array of objects in form of `{name: <validatorKey>, message<optional>: <validatorMessage>, parameter<required for max, min, maxLength, minLength, regexp>: <validatorValue>}`.
+    Validator name may be:
+    - `required`,
+      For example: `[{name: "required", message: "Please, select a city"}`.
+  - optional patameter `defaultValue` (string) - the default value of the input
+  - optional parameter `className` (string) - class name for custom styling
+  - optional parameter `errorClassName` (string) - class name for custom error state styling
+  - optional parameter `isDisabled` (boolean)
+
+- FieldGroup - the wrapper for `Radio` and `CheckBox` inputs. Accepts parameters:
+
+  - `isColumn` (boolean) - the direction of wrapper. Default is row.
+
+- Radio - accepts parameters:
+
+  - required `name` (string)
+  - required `label` (string)
+  - optional patameter `defaultChecked` (string) - the default value of the checked input
+  - optional parameter `className` (string) - class name for custom styling
+  - optional parameter `errorClassName` (string) - class name for custom error state styling
+  - optional parameter `isDisabled` (boolean)
+
+- CheckBox - accepts parameters:
+
+  - required `name` (string)
+  - required `label` (string)
+  - optional parameter `className` (string) - class name for custom styling
+  - optional parameter `isDisabled` (boolean)
+
+- Button accepts parameters:
+  - required `label` (string) - text
+  - `type` (string) - type of the button
+  - optional parameter `className` (string) - class name for custom styling
 
 ### Example
 
 ```sh
-    <Form :formId="apiKey" :initialValues="{ name: '', email: '', message: '' }" className="my-custom-class">
+    <Form :formId="apiKey">
       <Label label="Your Name" name="name">
-        <Input type="text" placeholder="Your Name" name="name" validator="required|onlyLetters" />
+        <Input className="inputMy" errorClassName="error" type="text" placeholder="Your Name" name="name" :validator="[
+          { name: 'required' },
+          { name: 'letters' }
+        ]" />
       </Label>
       <Label label="Email Address" name="email">
-        <Input placeholder="Email Address" type="email" name="email" validator="required|email" />
+        <Input placeholder="Email Address" type="email" name="email"
+          :validator="[{ name: 'required' }, { name: 'email' }]" />
       </Label>
       <Label label="Message" name="message">
-        <TextArea placeholder="Message" name="message" validator="required" />
+        <TextArea placeholder="Message" name="message" :validator="[{ name: 'required' }]" />
       </Label>
-      <Button label="Send form" type="submit" />
-    </Form>
+      <Label label="Your City" name="city" isDisabled>
+        <Select name="city" :validator="[{ name: 'required' }]"
+          :options="[{ label: 'New York', value: 'New York' }, { label: 'Paris', value: 'Paris' }, { label: 'Kyiv', value: 'Kyiv' }]" />
+      </Label>
+      <FieldGroup>
+        <Radio name="gender" value="male" label="Male" />
+        <Radio name="gender" value="female" label="Female" defaultChecked />
+      </FieldGroup>
+      <FieldGroup>
+        <CheckBox name="food" value="chololate" label="Chololate" />
+        <CheckBox name="food" value="icecream" label="Icecream" />
+        <CheckBox name="food" value="coffee" label="Coffee" />
+      </FieldGroup>
+      <Button label="Send form" type="submit" className="button-filledMy" />
 ```
-
 
 ## Word from author
 

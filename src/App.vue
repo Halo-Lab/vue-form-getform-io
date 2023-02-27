@@ -14,11 +14,10 @@
       <Label label="Message" name="message">
         <TextArea placeholder="Message" name="message" :validator="[{ name: 'required' }]" />
       </Label>
-      <Label label="Your City" name="city">
-        <Select name="city" :validator="[{ name: 'required' }]"
+      <Label label="Your City" name="city" isDisabled>
+        <Select name="city" :validator="[{ name: 'required' }]" defaultValue="Kyiv"
           :options="[{ label: 'New York', value: 'New York' }, { label: 'Paris', value: 'Paris' }, { label: 'Kyiv', value: 'Kyiv' }]" />
       </Label>
-
       <FieldGroup>
         <Radio name="gender" value="male" label="Male" />
         <Radio name="gender" value="female" label="Female" defaultChecked />
@@ -62,6 +61,11 @@ export default {
     const API_KEY = import.meta.env.VITE_API_FORM_KEY;
     return { apiKey: API_KEY };
   },
+  methods: {
+    submit: function (data) {
+      console.log(data)
+    }
+  }
 };
 </script>
 

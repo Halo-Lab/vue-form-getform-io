@@ -1,18 +1,17 @@
 <template>
-    <label :class="['input-container-box', {[className]: className}]">
+    <label :class="['input-container-box', {[className]: className, 'disabled': isDisabled}]">
         <input class="hidden" 
             type="radio" 
             :disabled="isDisabled" 
             :name="name" 
             v-model="fieldValue"
             :value="value"
-            @change="(e) => $emit('update:fieldValue', e.target.value)" 
-            />
-            <span :class="{
+        />
+        <span :class="{
             'input input-box input-radio': true,
             'input-radio-checked': value === fieldValue
         }" />
-            <span class="label label-box">{{ label }}</span>
+        <span class="label label-box">{{ label }}</span>
     </label>
 </template>
 

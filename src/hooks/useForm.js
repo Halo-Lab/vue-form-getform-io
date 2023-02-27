@@ -68,6 +68,12 @@ export const useForm = (formId) => {
       return callBack({ ...formState });
     }
 
+    if (!formId) {
+      throw new Error(
+        'You did not provaded "formId" or submit callback function. Please, provovide either'
+      );
+    }
+
     const URL = "https://getform.io/f/";
     const formData = new FormData();
 

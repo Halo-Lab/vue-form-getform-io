@@ -8,21 +8,21 @@
             'input input-select': true,
             'input-error': error,
             [className]: className,
-            [errorClassName]: error && errorClassName
-            }"
-    >
+            [errorClassName]: error && errorClassName,
+            'disabled': isDisabled
+        }">
         <div class="input-select-current" @click="resetOpened">
             {{ currentLabel }}
             <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 1L6 5L11 0.999999" stroke="#060811" stroke-width="1.5" stroke-linecap="round"
-                        stroke-linejoin="round" />
+                    stroke-linejoin="round" />
             </svg>
         </div>
         <ul v-if="isOpened" class="input-select-list">
             <li 
-                :class="['input-select-item', {'active': option.value === value}]" 
-                v-for="option in options" 
-                :key="option.value"
+                :class="['input-select-item', { 'active': option.value === value }]" 
+                v-for="option in options"
+                :key="option.value" 
                 @click="() => onChange(option.value)"
             >
                 {{ option.label }}
@@ -58,12 +58,17 @@ export default {
             type: String,
             default: ''
         },
+        isDisabled: {
+            type: Boolean,
+            default: false
+        }
     },
     setup(props) {
         const { name, defaultValue, validator, options } = props;
         const registerField = inject('registerField');
+        const isInOptions = options.map(option => option.value).includes(defaultValue)
         const { value, validate, error, resetError }
-            = registerField(name, defaultValue, validator);
+            = registerField(name, isInOptions ? defaultValue : undefined, validator);
         const currentLabel = computed(
             () => options.find((option) => option.value === value.value)?.label
                 ?? options[0].label);
