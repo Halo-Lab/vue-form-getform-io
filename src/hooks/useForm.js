@@ -9,7 +9,9 @@ export const useForm = (initialValues, formId) => {
 
   const getFieldValue = (name) => formState[name];
 
-  const setFieldValue = (name, value) => (formState[name] = value);
+  const setFieldValue = (name, value) => {
+    formState[name] = value;
+  };
 
   const getFieldError = (name) => errors[name];
 
@@ -19,14 +21,14 @@ export const useForm = (initialValues, formId) => {
 
   const hasFormErrors = () => Object.values(errors).some((error) => !!error);
 
-  const registerField = (name, validator) => {
+  const registerField = (name, defaultValue, validator) => {
     const {
       value,
       error,
       validate: fieldValidate,
       resetError: fieldResetError,
-    } = useField(name, setFieldValue, getFieldValue);
-    
+    } = useField(name, defaultValue, setFieldValue, getFieldValue);
+
     const validate = () => fieldValidate(validator, setFieldError);
 
     const resetError = () => fieldResetError(setFieldError);
@@ -52,29 +54,30 @@ export const useForm = (initialValues, formId) => {
         return;
       }
     }
-    if (callBack) {
-      return callBack({ ...formState });
-    }
-    const URL = "https://getform.io/f/";
-    const formData = new FormData();
-      
-    for (let key in formState) {
-      formData.append(key, formState[key]);
-    }
-    
-    try {
-      await fetch(`${URL}${formId}`, {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json",
-        },
-      });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      resetForm();
-    }
+      console.log(formState)
+    // if (callBack) {
+    //   return callBack({ ...formState });
+    // }
+    // const URL = "https://getform.io/f/";
+    // const formData = new FormData();
+
+    // for (let key in formState) {
+    //   formData.append(key, formState[key]);
+    // }
+
+    // try {
+    //   await fetch(`${URL}${formId}`, {
+    //     method: "POST",
+    //     body: formData,
+    //     headers: {
+    //       Accept: "application/json",
+    //     },
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // } finally {
+    //   resetForm();
+    // }
   };
 
   return {

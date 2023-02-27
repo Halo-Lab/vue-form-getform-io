@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref, computed, onBeforeMount } from "vue";
 
 import isValidField from "@/helpers";
 
@@ -7,9 +7,15 @@ const setError = (error, name, massage, callBack) => {
   callBack(name, massage);
 };
 
-export const useField = (name, setFieldValue, getFieldValue) => {
+export const useField = (name, defaultValue, setFieldValue, getFieldValue) => {
+//   onBeforeMount(() => {
+//     if (defaultValue !== undefined) {
+//       setFieldValue(name, defaultValue);
+//     }
+//   });
+
   const value = computed({
-    get: () => getFieldValue(name),
+    get: () => getFieldValue(name) ?? defaultValue,
     set: (newValue) => {
       setFieldValue(name, newValue);
     },

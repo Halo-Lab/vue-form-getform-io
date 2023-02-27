@@ -46,12 +46,16 @@ export default {
     errorClassName: {
       type: String,
       default: ''
+    },
+    defaultValue: {
+      type: String,
+      default: '',
     }
   },
   setup(props) {
-    const { name, validator } = props;
+    const { name, defaultValue, validator } = props;
     const registerField = inject('registerField');
-    const { value, error, validate, resetError } = registerField(name, validator);
+    const { value, error, validate, resetError } = registerField(name, defaultValue, validator);
     const onBlur = () => validate();
     const onFocus = () => resetError(name);
 

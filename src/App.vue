@@ -1,7 +1,7 @@
 <template>
   <main class="container">
     <Form 
-      :formId="apiKey" 
+      :formId="apiKey"
     >
       <Label label="Your Name" name="name">
         <Input 
@@ -31,6 +31,14 @@
           :validator="[{name: 'required'}]" 
         />
       </Label>
+      <Label label="City" name="city">
+        <Select 
+          name="city" 
+          :validator="[{name: 'required'}]" 
+          defaultValue="Kyiv"
+          :options="[{label: 'New York', value: 'New York'}, {label: 'Paris', value: 'Paris'}, {label: 'Kyiv', value: 'Kyiv'}]"
+        />
+        </Label>
       <Button label="Send form" type="submit" className="button-filledMy" />
     </Form>
   </main>
@@ -42,7 +50,8 @@ import {
   Label,
   Input,
   TextArea,
-  Button
+  Button,
+  Select
 } from './components';
 
 export default {
@@ -52,6 +61,7 @@ export default {
     Input,
     TextArea,
     Button,
+    Select
   },
   data() {
     const API_KEY = import.meta.env.VITE_API_FORM_KEY;

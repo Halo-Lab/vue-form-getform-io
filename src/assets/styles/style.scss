@@ -61,6 +61,12 @@
   text-rendering: optimizeLegibility;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -139,10 +145,79 @@
   }
 
   &-textarea {
-    @extend %input;
+    // @extend %input;
     padding: 16px;
     max-height: 88px;
     resize: none;
+  }
+
+  &-select {
+    min-height: 52px;
+    position: relative;
+    background: #fff;
+
+    border: 1px solid $lightGreyBorder;
+    pointer-events: all;
+    cursor: pointer;
+
+    &.input-error {
+      svg {
+        display: none;
+      }
+    }
+
+    &:hover {
+      border-color: $lightGrey;
+    }
+
+    &:focus {
+      border-color: $blue;
+      outline: none;
+
+      svg {
+        transform: rotate(180deg);
+        path {
+          stroke: $blue;
+        }
+      } 
+    }
+
+    &-current {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &-list {
+      padding: 0;
+      margin: 0;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      list-style: none;
+      background-color: white;
+      border: 1px solid $lightGreyBorder;
+      border-radius: 14px;
+      overflow: hidden;
+      z-index: 1;
+    }
+    &-item {
+      padding: 16px;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $lightGreyBorder;
+      }
+
+      &:hover {
+        background-color: $lightGreyBorder;
+      }
+
+      &:focus, &.active {
+        color: #fff;
+        background-color: $blue;
+      }
+    }
   }
 }
 
