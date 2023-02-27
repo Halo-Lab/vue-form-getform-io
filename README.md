@@ -69,11 +69,7 @@ import {
 ```
 
 - Form accepts parameters 
-    - required `:formId` (the id of your form on getform)
-    - optional `:initialValues` - the initial values for the form 
-        ```sh
-        {<field name>: <initial value>}
-        ```
+    - required `:formId` (the id of your form on getform). If `submitHandler` provided, parameter bacomes optional
     - optional parameter `submitHandler` - your custom submit handler (will be resposible for submitting the form on your platform, should get values of the form)
     - optional parameter `className` - class name for custom styling
 

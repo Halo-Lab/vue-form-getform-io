@@ -15,10 +15,7 @@ export default {
   props: {
     formId: {
       type: String,
-      required: true,
-    },
-    initialValues: {
-      type: Object,
+      default: ''
     },
     className: {
       type: String,
@@ -30,13 +27,13 @@ export default {
     }
   },
   setup(props) {
-    const { initialValues, formId } = props;
+    const { formId } = props;
     const {
       registerField,
       onSubmit,
       hasFormErrors,
       getFieldError
-    } = useForm(initialValues, formId);
+    } = useForm(formId);
     provide('registerField', registerField);
     provide('getFieldError', getFieldError);
     provide('hasFormErrors', hasFormErrors);

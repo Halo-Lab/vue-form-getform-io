@@ -7,12 +7,17 @@ const setError = (error, name, massage, callBack) => {
   callBack(name, massage);
 };
 
-export const useField = (name, defaultValue, setFieldValue, getFieldValue) => {
-//   onBeforeMount(() => {
-//     if (defaultValue !== undefined) {
-//       setFieldValue(name, defaultValue);
-//     }
-//   });
+export const useField = (
+  name,
+  defaultValue,
+  setFieldValue,
+  getFieldValue,
+  formStateInitial
+) => {
+  onBeforeMount(() => {
+    setFieldValue(name, defaultValue);
+    formStateInitial[name] = defaultValue ?? undefined;
+  });
 
   const value = computed({
     get: () => getFieldValue(name) ?? defaultValue,
@@ -32,7 +37,7 @@ export const useField = (name, defaultValue, setFieldValue, getFieldValue) => {
             errorMassage = message;
           }
           setError(error, name, message || errorMassage, callBack);
-          return;
+          return message || errorMassage;
         }
       }
     }

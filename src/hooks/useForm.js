@@ -2,8 +2,9 @@ import { reactive } from "vue";
 
 import { useField } from "./useField";
 
-export const useForm = (initialValues, formId) => {
-  const formState = reactive({ ...initialValues });
+export const useForm = (formId) => {
+  const formState = reactive({});
+  const formStateInitial = {};
   const errors = reactive({});
   const formValidator = {};
 
@@ -27,7 +28,13 @@ export const useForm = (initialValues, formId) => {
       error,
       validate: fieldValidate,
       resetError: fieldResetError,
-    } = useField(name, defaultValue, setFieldValue, getFieldValue);
+    } = useField(
+      name,
+      defaultValue,
+      setFieldValue,
+      getFieldValue,
+      formStateInitial
+    );
 
     const validate = () => fieldValidate(validator, setFieldError);
 
@@ -44,7 +51,9 @@ export const useForm = (initialValues, formId) => {
   };
 
   const resetForm = () => {
-    Object.keys(formState).forEach((key) => (formState[key] = undefined));
+    Object.keys(formState).forEach((key) =>
+      setFieldValue(key, formStateInitial[key])
+    );
     Object.keys(errors).forEach((key) => (errors[key] = undefined));
   };
 
@@ -54,30 +63,31 @@ export const useForm = (initialValues, formId) => {
         return;
       }
     }
-      console.log(formState)
-    // if (callBack) {
-    //   return callBack({ ...formState });
-    // }
-    // const URL = "https://getform.io/f/";
-    // const formData = new FormData();
 
-    // for (let key in formState) {
-    //   formData.append(key, formState[key]);
-    // }
+    if (callBack) {
+      return callBack({ ...formState });
+    }
 
-    // try {
-    //   await fetch(`${URL}${formId}`, {
-    //     method: "POST",
-    //     body: formData,
-    //     headers: {
-    //       Accept: "application/json",
-    //     },
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   resetForm();
-    // }
+    const URL = "https://getform.io/f/";
+    const formData = new FormData();
+
+    for (let key in formState) {
+      formData.append(key, formState[key]);
+    }
+
+    try {
+      await fetch(`${URL}${formId}`, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      resetForm();
+    }
   };
 
   return {

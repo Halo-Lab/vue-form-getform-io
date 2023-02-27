@@ -4,4 +4,7 @@ import Input from "./Input.vue";
 import TextArea from "./TextArea.vue";
 import Button from "./Button.vue";
 import Select from "./Select.vue";
-export { Form, Label, Input, TextArea, Button, Select };
+import Radio from "./Radio.vue";
+import FieldGroup from "./FieldGroup.vue";
+import CheckBox from './CheckBox.vue';
+export { Form, Label, Input, TextArea, Button, Select, FieldGroup, Radio, CheckBox };
