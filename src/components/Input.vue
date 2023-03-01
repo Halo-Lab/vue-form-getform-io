@@ -1,25 +1,38 @@
 <template>
-  <input 
-    :class="{
-      'input': true,
-      'input-error': error,
-      [className]: className,
-      [errorClassName]: error && errorClassName
-      }" 
-    :placeholder="placeholder" 
-    :type="type" 
-    :disabled="isDisabled" 
-    :name="name" 
-    v-model.trim="value"
-    @blur="onBlur" 
-    @focus="onFocus" 
-  />
+  <div :class="['input-container', {[fieldClassName]: fieldClassName}]">
+    <Label :label="label" :for="name" :className="labelClassName"/>
+    <input 
+      :class="{
+        'input': true,
+        'input-error': error,
+        [inputClassName]: inputClassName,
+        [errorClassName]: error && errorClassName
+        }" 
+      :placeholder="placeholder" 
+      :type="type" 
+      :disabled="isDisabled" 
+      :name="name" 
+      v-model.trim="value"
+      @blur="onBlur" 
+      @focus="onFocus" 
+    />
+    <Error :error="error" />
+  </div>
 </template>
 
 <script>
-import { inject } from 'vue';
+import { inject, computed } from 'vue';
+
+import Label from './Label.vue';
+import Error from './Error.vue';
+
 export default {
+  components: {Label, Error},
   props: {
+    label: {
+      type: String,
+      default: ''
+    },
     validator: {
       type: Array,
       default: null,
@@ -38,11 +51,19 @@ export default {
       type: String,
       requiered: true,
     },
-    className: {
+    inputClassName: {
+      type: String,
+      default: ''
+    },
+    labelClassName: {
       type: String,
       default: ''
     },
     errorClassName: {
+      type: String,
+      default: ''
+    },
+    fieldClassName: {
       type: String,
       default: ''
     },
@@ -54,7 +75,9 @@ export default {
   setup(props) {
     const { name, defaultValue, validator } = props;
     const registerField = inject('registerField');
-    const { value, error, validate, resetError } = registerField(name, defaultValue, validator);
+    const getFieldError = inject('getFieldError');
+    const error = computed(() => getFieldError(name));
+    const { value, validate, resetError } = registerField(name, defaultValue, validator);
     const onBlur = () => validate();
     const onFocus = () => resetError(name);
 

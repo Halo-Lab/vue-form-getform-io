@@ -80,19 +80,29 @@
   }
 }
 
-.field-group {
-  width: 100%;
-  margin-bottom: 24px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+.box {
+  &-container {
+    width: 100%;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 
-  &-column {
-    flex-direction: column;
+  &-field {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 
-    .input-container {
-      margin-bottom: 24px;
+    &:not(:last-child) {
+      margin-right: 24px;
     }
+  }
+
+  &-label {
+    margin-bottom: 0;
+    margin-left: 12px;
+    @include font();
   }
 }
 
@@ -101,35 +111,16 @@
   margin-bottom: 24px;
   display: flex;
   flex-direction: column;
-  pointer-events: none;
-
-  &-box {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: row;
-    margin-right: 20px;
-
-    &.disabled > * {
-      pointer-events: none;
-      opacity: 0.3;
-    }
-  }
 }
 
 .label {
   margin-bottom: 8px;
   @include font($size: 14px, $fontWeight: 500, $lineHeight: 20px);
   color: $black;
+  pointer-events: none;
 
   &-disabled {
     color: $grey;
-  }
-
-  &-box {
-    margin-bottom: 0;
-    margin-left: 12px;
-    @include font();
   }
 }
 
@@ -274,7 +265,8 @@
     cursor: pointer;
     transition: 0.3s linear;
 
-    &.input-error, &.input-error:hover {
+    &.input-error,
+    &.input-error:hover {
       border-color: $tomato;
       svg {
         display: none;
@@ -342,6 +334,92 @@
   }
 }
 
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 40px;
+  background: rgba(241, 242, 244, 0.502);
+  border: 1px dashed $grey;
+  border-radius: 14px;
+
+  &-icon {
+    margin-bottom: 24px;
+  }
+
+  &-title, &-text {
+    margin: 0;
+  }
+
+  &-title {
+    margin-bottom: 8px;
+    @include font($size: 24px, $fontWeight: 600, $lineHeight: 34px);
+    color: $black;
+  }
+
+  &-text {
+    margin-bottom: 24px;
+    @include font();
+    color: $darkGrey;
+  }
+}
+
+.file-info {
+
+  &-name {
+    @include font($size: 14px, $lineHeight: 21px);
+    color: $darkGrey;
+  }
+
+  &-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &-item {
+    display: flex;
+    flex-wrap: wrap;
+
+    &-header {
+      margin-bottom: 8px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      
+    }
+
+    &-progress {
+      height: 2px;
+      width: 100%;
+      .inner {
+        height: 100%;
+        background-color: $black;
+        border-radius: 10px;
+
+        &-error {
+          background-color: $red;
+        }
+
+        &-filled {
+          background-color: $green;
+        }
+      }
+      
+    }
+
+    &-error {
+      margin-top: 8px;
+      @include font($size: 12px, $lineHeight: 15px);
+      color: $red;
+    }
+    
+  }
+  
+}
+
 .button {
   @extend %button;
 
@@ -380,6 +458,26 @@
       color: $blueDisabled;
       border-color: $blueDisabled;
       cursor: auto;
+    }
+  }
+
+  &-icon {
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: $mainBackgroundColor;
+
+    &-error {
+      background-color: $red;
+      svg {
+        path {
+          stroke: #fff;
+        }
+      }
     }
   }
 }

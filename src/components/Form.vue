@@ -32,11 +32,13 @@ export default {
       registerField,
       onSubmit,
       hasFormErrors,
-      getFieldError
+      getFieldError,
+      setFieldError,
     } = useForm(formId);
     provide('registerField', registerField);
     provide('getFieldError', getFieldError);
     provide('hasFormErrors', hasFormErrors);
+    provide('setFieldError', setFieldError);
     
     return { onSubmit };
   },

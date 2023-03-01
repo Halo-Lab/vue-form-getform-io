@@ -1,41 +1,54 @@
 <template>
-    <div 
-        @focus="onFocus" 
-        @blur="onBlur" 
-        :tabindex="0" 
-        ref="selectRef" 
-        :class="{
-            'input input-select': true,
-            'input-error': error,
-            [className]: className,
-            [errorClassName]: error && errorClassName,
-            'disabled': isDisabled
-        }">
-        <div class="input-select-current" @click="resetOpened">
-            {{ currentLabel }}
-            <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 1L6 5L11 0.999999" stroke="#060811" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-            </svg>
+    <div :class="['input-container', { [fieldClassName]: fieldClassName }]">
+        <Label :label="label" :className="labelClassName" :isDisabled="isDisabled" />
+        <div 
+            @focus="onFocus" 
+            @blur="onBlur" 
+            :tabindex="0" 
+            ref="selectRef" 
+            :class="{
+                'input input-select': true,
+                'input-error': error,
+                [inputClassName]: inputClassName,
+                [errorClassName]: error && errorClassName,
+                'disabled': isDisabled
+            }"
+        >
+            <div class="input-select-current" @click="resetOpened">
+                {{ currentLabel }}
+                <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L6 5L11 0.999999" stroke="#060811" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+            <ul v-if="isOpened" class="input-select-list">
+                <li 
+                    :class="['input-select-item', { 'active': option.value === value }]" 
+                    v-for="option in options"
+                    :key="option.value" 
+                    @click="() => onChange(option.value)"
+                >
+                    {{ option.label }}
+                </li>
+            </ul>
         </div>
-        <ul v-if="isOpened" class="input-select-list">
-            <li 
-                :class="['input-select-item', { 'active': option.value === value }]" 
-                v-for="option in options"
-                :key="option.value" 
-                @click="() => onChange(option.value)"
-            >
-                {{ option.label }}
-            </li>
-        </ul>
+        <Error :error="error" />
     </div>
 </template>
 
 <script>
 import { inject, computed, ref } from 'vue';
 
+import Label from './Label.vue';
+import Error from './Error.vue';
+
 export default {
+    components: { Label, Error },
     props: {
+        label: {
+            type: String,
+            default: ''
+        },
         name: {
             type: String,
             requiered: true
@@ -50,11 +63,19 @@ export default {
         validator: {
             type: Array
         },
-        className: {
+        inputClassName: {
+            type: String,
+            default: ''
+        },
+        labelClassName: {
             type: String,
             default: ''
         },
         errorClassName: {
+            type: String,
+            default: ''
+        },
+        fieldClassName: {
             type: String,
             default: ''
         },
@@ -66,8 +87,10 @@ export default {
     setup(props) {
         const { name, defaultValue, validator, options } = props;
         const registerField = inject('registerField');
+        const getFieldError = inject('getFieldError');
+        const error = computed(() => getFieldError(name));
         const isInOptions = options.map(option => option.value).includes(defaultValue)
-        const { value, validate, error, resetError }
+        const { value, validate, resetError }
             = registerField(name, isInOptions ? defaultValue : undefined, validator);
         const currentLabel = computed(
             () => options.find((option) => option.value === value.value)?.label

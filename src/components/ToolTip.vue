@@ -4,7 +4,6 @@
     {
       [`tooltip-${type}`]: true, 
       [`tooltip-${isVisible ? 'visible' : 'hidden'}`]: true, 
-      [className]: className
     }]"
   >
     {{ text }}
@@ -27,10 +26,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    className: {
-      type: String,
-      default: '',
-    }
   },
 };
 </script>

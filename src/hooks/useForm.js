@@ -78,13 +78,20 @@ export const useForm = (formId) => {
     const formData = new FormData();
 
     for (let key in formState) {
-      formData.append(key, formState[key]);
+      if (key.includes("[]")) {
+        formState[key].forEach((value) => {
+          formData.append(key, value);
+        });
+      } else {
+        formData.append(key, formState[key]);
+      }
     }
 
     try {
       await fetch(`${URL}${formId}`, {
         method: "POST",
         body: formData,
+        ContentType: 'multipart/form-data', 
         headers: {
           Accept: "application/json",
         },
@@ -101,5 +108,6 @@ export const useForm = (formId) => {
     getFieldError,
     onSubmit,
     hasFormErrors,
+    setFieldError,
   };
 };
