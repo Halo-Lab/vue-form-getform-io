@@ -68,111 +68,152 @@ import {
 </style>
 ```
 
-- Form accepts parameters
+- ### `Form` is a container for all inputs. It accepts parameters:
 
   - required `:formId` (string) - the id of your form on getform). If `submitHandler` provided, parameter bacomes optional
   - optional parameter `submitHandler` (function) - your custom submit handler (will be resposible for submitting the form on your platform, should get values of the form). If not provided, `:formId` is required
   - optional parameter `className` (string) - class name for custom styling
 
-- Label accepts parameters
 
-  - required `label` (string) - the label text
-  - required `name`(string) - the name of the input current label is for
-  - optional parameter `className` (string) - class name for custom styling
-  - optional parameter `tooltipClassName` (string) - class name for custom styling Tooltip
-  - optional parameter `isDisabled` (boolean)
+- ### Inputs for the form:
 
-- Input and TextareaComponent accepts parameters
+  - #### `Input` and `TextareaComponent` accept parameters:
 
-  - required `placeholder` (string)
-  - required `type` (string)
-  - required `name` (string)
-  - optional `validator` - the array of objects in form of `[name: <validatorKey>, message<optional>: <validatorMessage>, parameter<required for max, min, maxLength, minLength, regexp>: <validatorValue>`.
-    Validator names may be:
-    - `required`,
-    - `email`,
-    - `number`,
-    - `maxLength` (must be provided value),
-    - `minLength` (must be provided value),
-    - `max` (must be provided value),
-    - `min` (must be provided value),
-    - `regexp (must be provided value)`,
-    - `func` (must be provided value - validation function which return truthy value if error detected, and message for error).
-      For example: `[{name: "required"}, {name: "email", message: "Please, enter a valid email"}, {name: "max", message: "should be a number!", value: 6}, {name: regexp, value: /^[0-9]*$/}]`.
-  - optional patameter `defaultValue` (string) - the default value of the input
-  - optional parameter `className` (string) - class name for custom styling
-  - optional parameter `errorClassName` (string) - class name for custom error state styling
-  - optional parameter `isDisabled` (boolean)
+    - required `placeholder` (string)
+    - required `type` (string)
+    - required `name` (string)
+    - optional `validator` - the array of objects in form of `[name: <validatorKey>, message<optional>: <validatorMessage>, parameter<required for max, min, maxLength, minLength, regexp>: <validatorValue>`.
+      Validator names may be:
+      - `required`,
+      - `email`,
+      - `number`,
+      - `maxLength` (must be provided value),
+      - `minLength` (must be provided value),
+      - `max` (must be provided value),
+      - `min` (must be provided value),
+      - `regexp (must be provided value)`,
+      - `func` (must be provided value - validation function which return truthy value if error detected, and message for error).
+        For example: `[{name: "required"}, {name: "email", message: "Please, enter a valid email"}, {name: "max", message: "should be a number!", value: 6}, {name: regexp, value: /^[0-9]*$/}]`.
+    - optional patameter `defaultValue` (string) - the default value of the input
+    - optional parameter `fieldClassName` (string) - class name for custom input container styling
+    - optional parameter `labelClassName` (string) - class name for custom label styling
+    - optional parameter `inputClassName` (string) - class name for custom input styling
+    - optional parameter `errorClassName` (string) - class name for custom error state styling
+    - optional parameter `isDisabled` (boolean)
 
-- Select accepts parameters:
+  - #### `Select` accepts parameters:
 
-  - required `name` (string)
-  - required `options` - an array of objects in form of `{label: <display value>, value: <option value>}`
-  - optional `validator` - the array of objects in form of `{name: <validatorKey>, message<optional>: <validatorMessage>, parameter<required for max, min, maxLength, minLength, regexp>: <validatorValue>}`.
-    Validator name may be:
-    - `required`,
-      For example: `[{name: "required", message: "Please, select a city"}`.
-  - optional patameter `defaultValue` (string) - the default value of the input
-  - optional parameter `className` (string) - class name for custom styling
-  - optional parameter `errorClassName` (string) - class name for custom error state styling
-  - optional parameter `isDisabled` (boolean)
+    - required `name` (string)
+    - required `options` - an array of objects in form of `{label: <display value>, value: <option value>}`
+    - optional `validator` - the array of objects in form of `{name: <validatorKey>, message<optional>: <validatorMessage>, parameter<required for max, min, maxLength, minLength, regexp>: <validatorValue>}`.
+      Validator name may be:
+      - `required`,
+        For example: `[{name: "required", message: "Please, select a city"}`.
+    - optional patameter `defaultValue` (string) - the default value of the input
+    - optional parameter `fieldClassName` (string) - class name for custom input container styling
+    - optional parameter `labelClassName` (string) - class name for custom label styling
+    - optional parameter `inputClassName` (string) - class name for custom input styling
+    - optional parameter `errorClassName` (string) - class name for custom error state styling
+    - optional parameter `isDisabled` (boolean)
 
-- FieldGroup - the wrapper for `Radio` and `CheckBox` inputs. Accepts parameters:
+  - #### `RadioGroup` - accepts parameters:
 
-  - `isColumn` (boolean) - the direction of wrapper. Default is row.
+    - required `name` (string)
+    - required `label` (string)
+    - required `fields` - array of object in pirm of `{value: <input value>, label: <input label>, <checked>: <boolean flag if input should be checked default>}`
+    - optional parameter `fieldClassName` (string) - class name for custom input container styling
+    - optional parameter `labelClassName` (string) - class name for custom label for entire styling
+    - optional parameter `inputClassName` (string) - class name for custom input styling
+    - optional parameter `inputLabelClassName` (string) - class name for custom label styling
+    - optional parameter `isDisabled` (boolean)
 
-- Radio - accepts parameters:
+  - #### `CheckBoxGroup` - accepts parameters:
+    - required `name` (string)
+    - required `label` (string)
+    - required `fields` - array of object in pirm of `{value: <input value>, label: <input label>}`
+    - optional parameter `fieldClassName` (string) - class name for custom input container styling
+    - optional parameter `labelClassName` (string) - class name for custom label for entire styling
+    - optional parameter `inputClassName` (string) - class name for custom input styling
+    - optional parameter `inputLabelClassName` (string) - class name for custom label styling
+    - optional parameter `isDisabled` (boolean)
 
-  - required `name` (string)
-  - required `label` (string)
-  - optional patameter `defaultChecked` (string) - the default value of the checked input
-  - optional parameter `className` (string) - class name for custom styling
-  - optional parameter `errorClassName` (string) - class name for custom error state styling
-  - optional parameter `isDisabled` (boolean)
+  - #### `FileInput` - accepts parameters:
+    - required `name` (string)
+    - optional `validTypes` - array of strings with valid file extentions
+    - optional `isMultiple` (boolean) - flag to accept multiple files
+    - optional parameter `fieldClassName` (string) - class name for custom input container styling
+    - optional parameter `titleClassName` (string) - class name for custom label for entire styling
+    - optional parameter `textClassName` (string) - class name for custom text styling
 
-- CheckBox - accepts parameters:
-
-  - required `name` (string)
-  - required `label` (string)
-  - optional parameter `className` (string) - class name for custom styling
-  - optional parameter `isDisabled` (boolean)
-
-- Button accepts parameters:
-  - required `label` (string) - text
-  - `type` (string) - type of the button
-  - optional parameter `className` (string) - class name for custom styling
+  - #### `Button` accepts parameters:
+    - required `label` (string) - text
+    - `type` (string) - type of the button
+    - optional parameter `className` (string) - class name for custom styling
 
 ### Example
 
 ```sh
     <Form :formId="apiKey">
-      <Label label="Your Name" name="name">
-        <Input className="inputMy" errorClassName="error" type="text" placeholder="Your Name" name="name" :validator="[
+      <Input 
+        fieldClassName="myField" 
+        inputClassName="inputMy" 
+        errorClassName="error" 
+        labelClassName="myLabel" 
+        type="text"
+        placeholder="Your Name" 
+        name="name" 
+        :validator="[
           { name: 'required' },
           { name: 'letters' }
-        ]" />
-      </Label>
-      <Label label="Email Address" name="email">
-        <Input placeholder="Email Address" type="email" name="email"
-          :validator="[{ name: 'required' }, { name: 'email' }]" />
-      </Label>
-      <Label label="Message" name="message">
-        <TextArea placeholder="Message" name="message" :validator="[{ name: 'required' }]" />
-      </Label>
-      <Label label="Your City" name="city" isDisabled>
-        <Select name="city" :validator="[{ name: 'required' }]"
-          :options="[{ label: 'New York', value: 'New York' }, { label: 'Paris', value: 'Paris' }, { label: 'Kyiv', value: 'Kyiv' }]" />
-      </Label>
-      <FieldGroup>
-        <Radio name="gender" value="male" label="Male" />
-        <Radio name="gender" value="female" label="Female" defaultChecked />
-      </FieldGroup>
-      <FieldGroup>
-        <CheckBox name="food" value="chololate" label="Chololate" />
-        <CheckBox name="food" value="icecream" label="Icecream" />
-        <CheckBox name="food" value="coffee" label="Coffee" />
-      </FieldGroup>
+        ]" 
+        label="Your Name" 
+      />
+      <Input 
+        placeholder="Email Address" 
+        type="email" name="email" 
+        :validator="[{ name: 'required' }, { name: 'email' }]"
+        label="Email Address" 
+      />
+      <TextArea 
+        label="Message" 
+        placeholder="Message" 
+        name="message" 
+        :validator="[{ name: 'required' }]" 
+      />
+      <Select 
+        label="Your City" 
+        name="city" 
+        :validator="[{ name: 'required' }]"
+        :options="[
+          { label: 'New York', value: 'New York' }, 
+          { label: 'Paris', value: 'Paris' }, 
+          { label: 'Kyiv', value: 'Kyiv' }
+          ]" 
+      />
+      <RadioGroup 
+        label="Your Gender" 
+        name="gender"
+        :fields="[
+          {value: 'male', label: 'Male'}, 
+          {value: 'female', label: 'Female', checked: true}
+          ]" 
+        />
+      <CheckBoxGroup 
+        label="Your Favourite food" 
+        name="food"
+        :fields="[
+          { value: 'chocolate', label: 'Chocolate' }, 
+          { value: 'ice-cream', label: 'Ice-cream' }, 
+          { value: 'coffee', label: 'Coffee' }
+        ]" 
+      />
+      <FileInput 
+        name="images" 
+        isMultiple 
+        :validTypes="['jpg', 'png', 'jpeg', 'gif', 'pdf', 'doc', 'docx']" 
+      />
       <Button label="Send form" type="submit" className="button-filledMy" />
+    </Form>
 ```
 
 ## Word from author

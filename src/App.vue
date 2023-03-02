@@ -67,7 +67,6 @@
 <script>
 import {
   Form,
-  Label,
   Input,
   TextArea,
   Button,
@@ -80,7 +79,6 @@ import {
 export default {
   components: {
     Form,
-    Label,
     Input,
     TextArea,
     Button,

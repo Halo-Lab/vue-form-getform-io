@@ -348,7 +348,8 @@
     margin-bottom: 24px;
   }
 
-  &-title, &-text {
+  &-title,
+  &-text {
     margin: 0;
   }
 
@@ -378,6 +379,9 @@
   }
 
   &-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -392,7 +396,7 @@
       width: 100%;
       display: flex;
       justify-content: space-between;
-      align-items: center;   
+      align-items: center;
     }
 
     &-progress {
@@ -410,15 +414,30 @@
         &-filled {
           background-color: $green;
         }
-      }   
+      }
     }
 
     &-error {
       margin-top: 8px;
       @include font($size: 12px, $lineHeight: 15px);
       color: $red;
-    }  
+    }
   }
+}
+
+.file-info-list-transition-enter-active,
+.file-info-list-transition-leave-active,
+.file-info-list-transition-move {
+  transition: all 0.5s linear;
+}
+.file-info-list-transition-enter-from,
+.file-info-list-transition-leave-to {
+  transform: translateX(30px) scaleY(0.01);
+  opacity: 0;
+}
+
+.file-info-list-transition-leave-active {
+  position: absolute;
 }
 
 .button {
