@@ -25,9 +25,9 @@ export const useForm = (formId) => {
   const registerField = (name, defaultValue, validator) => {
     const {
       value,
-      error,
       validate: fieldValidate,
       resetError: fieldResetError,
+      fileValidate,
     } = useField(
       name,
       defaultValue,
@@ -40,13 +40,15 @@ export const useForm = (formId) => {
 
     const resetError = () => fieldResetError(setFieldError);
 
-    formValidator[name] = validate;
+    const fileFieldValidate = (file, validTypes) => fileValidate(file, validTypes, setFieldError)
+
+    formValidator[name] = name.includes('[]') ? fileFieldValidate : validate;
 
     return {
       value,
-      error,
       validate,
       resetError,
+      fileFieldValidate
     };
   };
 

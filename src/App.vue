@@ -1,7 +1,7 @@
 <template>
   <main class="container">
     <Form :formId="apiKey">
-      <!-- <Input 
+      <Input 
         fieldClassName="myField" 
         inputClassName="inputMy" 
         errorClassName="error" 
@@ -39,6 +39,7 @@
       />
       <RadioGroup 
         label="Your Gender" 
+        name="gender"
         :fields="[
           {value: 'male', label: 'Male'}, 
           {value: 'female', label: 'Female', checked: true}
@@ -52,8 +53,12 @@
           { value: 'ice-cream', label: 'Ice-cream' }, 
           { value: 'coffee', label: 'Coffee' }
         ]" 
-      /> -->
-      <FileInput name="images" :validTypes="['jpg', 'png', 'jpeg', 'gif', 'pdf', 'doc', 'docx']" maxTotalSize="5" />
+      />
+      <FileInput 
+        name="images" 
+        isMultiple 
+        :validTypes="['jpg', 'png', 'jpeg', 'gif', 'pdf', 'doc', 'docx']" 
+      />
       <Button label="Send form" type="submit" className="button-filledMy" />
     </Form>
   </main>

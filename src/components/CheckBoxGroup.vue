@@ -3,8 +3,8 @@
         <Label :label="label" :className="labelClassName" :isDisabled="isDisabled" />
         <div :class="['box-container', { 'disabled': isDisabled }]">
             <label v-for="field in fields" class="box-field">
-                <input c
-                    lass="hidden" 
+                <input
+                    class="hidden" 
                     type="checkbox" 
                     :disabled="isDisabled" 
                     :name="name" 

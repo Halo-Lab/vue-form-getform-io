@@ -2,11 +2,6 @@ import { ref, computed, onBeforeMount } from "vue";
 
 import isValidField from "@/helpers";
 
-const setError = (error, name, massage, callBack) => {
-  error.value = true;
-  callBack(name, massage);
-};
-
 export const useField = (
   name,
   defaultValue,
@@ -25,7 +20,6 @@ export const useField = (
       setFieldValue(name, newValue);
     },
   });
-  const error = ref(false);
 
   const validate = (validators, callBack) => {
     if (validators) {
@@ -36,22 +30,35 @@ export const useField = (
           if (key === "func") {
             errorMassage = message;
           }
-          setError(error, name, message || errorMassage, callBack);
-          return message || errorMassage;
+          callBack(name, errorMassage);
+          return errorMassage;
         }
       }
     }
   };
 
+  const fileValidate = (file, validExtentions, callBack) => {
+    if (!file) {
+      return;
+    }
+    const ext = file.name.toLowerCase().split('.').slice(-1)[0];
+    const error = (!validExtentions.map((t) => t.toLowerCase()).includes(ext))
+      ? 'This document is not supported, please delete and upload another file.'
+      : '';
+    if (error) {
+      callBack(name, error)
+    }
+    return error
+  }
+
   const resetError = (callBack) => {
-    error.value = false;
     callBack(name, "");
   };
 
   return {
     value,
-    error,
     validate,
+    fileValidate,
     resetError,
   };
 };
