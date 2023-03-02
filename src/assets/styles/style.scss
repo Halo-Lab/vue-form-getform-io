@@ -257,6 +257,7 @@
   }
 
   &-select {
+    padding: 0;
     min-height: 52px;
     position: relative;
     background: #fff;
@@ -286,7 +287,7 @@
       border-color: $blue;
       outline: none;
 
-      svg {
+      .icon-arrow {
         transform: rotate(180deg);
         path {
           stroke: $blue;
@@ -295,6 +296,7 @@
     }
 
     &-current {
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -329,6 +331,48 @@
       &.active {
         color: #fff;
         background-color: $blue;
+      }
+
+      &-search {
+        position: relative;
+
+        .search-icon {
+          width: 16px;
+          height: 16px;
+          position: absolute;
+          left: 20px;
+          top: 21px;
+        }
+
+        &:hover {
+          background-color: initial;
+        }
+
+        &:focus {
+          color: initial;
+          background-color: initial;
+        }
+      }
+    }
+  }
+
+  &-search {
+    padding: 0;
+    padding-left: 36px;
+    width: 100%;
+    border: none;
+
+    &:hover:enabled {
+      border-color: transparent;
+    }
+
+    &:focus:enabled {
+      border-color: transparent;
+
+      & + .search-icon {
+        path {
+          fill: $black;
+        }
       }
     }
   }
@@ -522,6 +566,7 @@
   }
 
   &-hidden {
+    padding: 0;
     opacity: 0;
   }
 
