@@ -47,7 +47,7 @@
           ]" 
         />
       <CheckBoxGroup 
-        label="Your Favourite food" 
+        label="Your Favorite food" 
         name="food"
         :fields="[
           { value: 'chocolate', label: 'Chocolate' }, 
