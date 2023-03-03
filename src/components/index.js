@@ -1,6 +1,9 @@
 import Form from "./Form.vue";
-import Label from "./Label.vue";
 import Input from "./Input.vue";
 import TextArea from "./TextArea.vue";
 import Button from "./Button.vue";
-export { Form, Label, Input, TextArea, Button };
+import Select from "./Select.vue";
+import RadioGroup from "./RadioGroup.vue";
+import CheckBoxGroup from './CheckBoxGroup.vue';
+import FileInput from "./FileInput.vue";
+export { Form, Input, TextArea, Button, Select, RadioGroup, CheckBoxGroup, FileInput };

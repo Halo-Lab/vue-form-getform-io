@@ -1,37 +1,88 @@
 <template>
-  <input
-    :class="{ 'input': true, 'input-error': hasError, [className]: className, [errorClassName]: hasError && errorClassName }"
-    @input="onInput"
-    :placeholder="placeholder"
-    :type="type"
-    :disabled="isDisabled"
-    @blur="onBlur"
-    @focus="onFocuse"
-    :name="name"
-    :value="value"
-  />
+  <div :class="['input-container', {[fieldClassName]: fieldClassName}]">
+    <Label :label="label" :for="name" :className="labelClassName"/>
+    <input 
+      :class="{
+        'input': true,
+        'input-error': error,
+        [inputClassName]: inputClassName,
+        [errorClassName]: error && errorClassName
+        }" 
+      :placeholder="placeholder" 
+      :type="type" 
+      :disabled="isDisabled" 
+      :name="name" 
+      v-model.trim="value"
+      @blur="onBlur" 
+      @focus="onFocus" 
+    />
+    <Error :error="error" />
+  </div>
 </template>
 
 <script>
-import inputMixin from "../mixins/inputMixin";
+import { inject, computed } from 'vue';
+
+import Label from './Label.vue';
+import Error from './Error.vue';
+
 export default {
-  inject: {
-    setFieldValidator: "setFieldValidator",
-    resetError: "resetError",
-    setFormState: "setFormState",
-    getFormState: "getFormState",
-    getFieldError: "getFieldError",
-    checkFieldError: "checkFieldError",
-  },
-  mixins: [inputMixin],
-  computed: {
-    hasError() {
-      return this.getFieldError(this.name);
+  components: {Label, Error},
+  props: {
+    label: {
+      type: String,
+      default: ''
     },
-    value() {
-      return this.getFormState(this.name);
+    validator: {
+      type: Array,
+      default: null,
     },
+    placeholder: {
+      type: String,
+    },
+    type: {
+      type: String,
+      default: "text",
+    },
+    isDisabled: {
+      type: Boolean,
+    },
+    name: {
+      type: String,
+      requiered: true,
+    },
+    inputClassName: {
+      type: String,
+      default: ''
+    },
+    labelClassName: {
+      type: String,
+      default: ''
+    },
+    errorClassName: {
+      type: String,
+      default: ''
+    },
+    fieldClassName: {
+      type: String,
+      default: ''
+    },
+    defaultValue: {
+      type: String,
+      default: '',
+    }
   },
+  setup(props) {
+    const { name, defaultValue, validator } = props;
+    const registerField = inject('registerField');
+    const getFieldError = inject('getFieldError');
+    const error = computed(() => getFieldError(name));
+    const { value, validate, resetError } = registerField(name, defaultValue, validator);
+    const onBlur = () => validate();
+    const onFocus = () => resetError(name);
+
+    return { value, error, onBlur, onFocus };
+  }
 };
 </script>
 

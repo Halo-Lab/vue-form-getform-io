@@ -1,6 +1,6 @@
 {
   "name": "@halo-lab/vue-form-getform-io",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     "dist/*"
   ],
@@ -12,7 +12,6 @@
   "exports": {
     ".": "./dist/vue-form-getform-io.es.js",
     "./styles": "./dist/style.css"
-
   },
   "sideEffects": [
     "*.css"

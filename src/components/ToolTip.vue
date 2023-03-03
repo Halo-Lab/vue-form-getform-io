@@ -1,10 +1,11 @@
 <template>
-  <div :class="['tooltip', 
-  {
-    [`tooltip-${type}`]: true, 
-    [`tooltip-${isVisible ? 'visible' : 'hidden'
-      }`]: true, [className]: className
-  }]">
+  <div 
+  :class="['tooltip', 
+    {
+      [`tooltip-${type}`]: true, 
+      [`tooltip-${isVisible ? 'visible' : 'hidden'}`]: true, 
+    }]"
+  >
     {{ text }}
   </div>
 </template>
@@ -25,10 +26,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    className: {
-      type: String,
-      default: '',
-    }
   },
 };
 </script>
