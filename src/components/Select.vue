@@ -23,7 +23,7 @@
                 </svg>
             </div>
             <ul v-if="isOpened" class="input-select-list">
-                <li :class="['input-select-item input-select-item-search']">
+                <li v-if="search" :class="['input-select-item input-select-item-search']">
                     <input 
                         class="input input-search" 
                         type="text" 
@@ -78,6 +78,10 @@ export default {
         },
         defaultValue: {
             type: String,
+        },
+        search: {
+            type: Boolean,
+            default: false,
         },
         validator: {
             type: Array

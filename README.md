@@ -109,6 +109,7 @@ import {
       Validator name may be:
       - `required`,
         For example: `[{name: "required", message: "Please, select a city"}`.
+    - optional patameter `search` (boolean) - flag if use searchable select
     - optional patameter `defaultValue` (string) - the default value of the input
     - optional parameter `fieldClassName` (string) - class name for custom input container styling
     - optional parameter `labelClassName` (string) - class name for custom label styling
@@ -183,6 +184,7 @@ import {
       <Select 
         label="Your City" 
         name="city" 
+        search
         :validator="[{ name: 'required' }]"
         :options="[
           { label: 'New York', value: 'New York' }, 

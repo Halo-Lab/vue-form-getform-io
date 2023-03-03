@@ -29,6 +29,7 @@
       />
       <Select 
         label="Your City" 
+        search
         name="city" 
         :validator="[{ name: 'required' }]"
         :options="[
