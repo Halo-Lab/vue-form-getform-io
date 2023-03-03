@@ -45,7 +45,7 @@
                     ]" 
                     v-for="option in currentOptions"
                     :key="option.value" 
-                    @click="() => onChange(option.value)"
+                    @mousedown="() => onChange(option.value)"
                 >
                     {{ option.label }}
                 </li>
