@@ -1,64 +1,75 @@
 <template>
   <main class="container">
-    <Form :formId="apiKey">
-      <Input 
-        fieldClassName="myField" 
-        inputClassName="inputMy" 
-        errorClassName="error" 
-        labelClassName="myLabel" 
+    <Form :hubspotFormId="hubspotFormId" :hubspotPortalId="hubspotPortalId">
+      <Input
+        fieldClassName="myField"
+        inputClassName="inputMy"
+        errorClassName="error"
+        labelClassName="myLabel"
         type="text"
-        placeholder="Your Name" 
-        name="name" 
+        placeholder="Your First Name"
+        name="firstname"
         :validator="[
           { name: 'required' },
           { name: 'letters' }
-        ]" 
-        label="Your Name" 
+        ]"
+        label="Your Name"
       />
-      <Input 
-        placeholder="Email Address" 
-        type="email" name="email" 
+      <Input
+        fieldClassName="myField"
+        inputClassName="inputMy"
+        errorClassName="error"
+        labelClassName="myLabel"
+        type="text"
+        placeholder="Your Last Name"
+        name="lastname"
+        :validator="[
+          { name: 'required' },
+          { name: 'letters' }
+        ]"
+        label="Your Name"
+      />
+      <Input
+        placeholder="Email Address"
+        type="email"
+        name="email"
         :validator="[{ name: 'required' }, { name: 'email' }]"
-        label="Email Address" 
+        label="Email Address"
       />
-      <TextArea 
-        label="Message" 
-        placeholder="Message" 
-        name="message" 
-        :validator="[{ name: 'required' }]" 
+      <TextArea
+        label="Message"
+        placeholder="Message"
+        name="message"
+        :validator="[{ name: 'required' }]"
       />
-      <Select 
-        label="Your City" 
+      <Select
+        label="Your City"
         search
-        name="city" 
+        name="city"
         :validator="[{ name: 'required' }]"
         :options="[
-          { label: 'New York', value: 'New York' }, 
-          { label: 'Paris', value: 'Paris' }, 
+          { label: 'New York', value: 'New York' },
+          { label: 'Paris', value: 'Paris' },
           { label: 'Kyiv', value: 'Kyiv' }
-          ]" 
+        ]"
       />
-      <RadioGroup 
-        label="Your Gender" 
+      <RadioGroup
+        label="Your Gender"
         name="gender"
         :fields="[
-          {value: 'male', label: 'Male'}, 
-          {value: 'female', label: 'Female', checked: true}
-          ]" 
-        />
-      <CheckBoxGroup 
-        label="Your Favorite food" 
-        name="food"
-        :fields="[
-          { value: 'chocolate', label: 'Chocolate' }, 
-          { value: 'ice-cream', label: 'Ice-cream' }, 
-          { value: 'coffee', label: 'Coffee' }
-        ]" 
+          { value: 'male', label: 'Male' },
+          { value: 'female', label: 'Female', checked: true }
+        ]"
       />
-      <FileInput 
-        name="images" 
-        isMultiple 
-        :validTypes="['jpg', 'png', 'jpeg', 'gif', 'pdf', 'doc', 'docx']" 
+      <CheckBoxGroup
+      label="Your Skills"
+      name="skills"
+      :fields="[
+        { value: 'JavaScript', label: 'JavaScript' },
+        { value: 'React', label: 'React' },
+        { value: 'Angular', label: 'Angular' },
+        { value: 'Vue', label: 'Vue' }
+        ]"
       />
       <Button label="Send form" type="submit" className="button-filledMy" />
     </Form>
@@ -74,7 +85,6 @@ import {
   Select,
   RadioGroup,
   CheckBoxGroup,
-  FileInput
 } from './components';
 
 export default {
@@ -86,17 +96,18 @@ export default {
     Select,
     RadioGroup,
     CheckBoxGroup,
-    FileInput
   },
   data() {
-    const API_KEY = import.meta.env.VITE_API_FORM_KEY;
-    return { apiKey: API_KEY };
+    const HUBSPOT_PORTAL_ID = import.meta.env.VITE_API_HUBSPOT_PORTAL;
+    const HUBSPOT_FORM_ID = import.meta.env.VITE_API_HUBSPOT_FORM_ID;
+
+    return { hubspotFormId: HUBSPOT_FORM_ID, hubspotPortalId: HUBSPOT_PORTAL_ID };
   },
   methods: {
-    submit: function (data) {
-      console.log(data)
-    }
-  }
+    submit(data) {
+      console.log(data);
+    },
+  },
 };
 </script>
 

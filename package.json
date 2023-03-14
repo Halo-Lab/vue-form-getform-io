@@ -1,16 +1,16 @@
 {
-  "name": "@halo-lab/vue-form-getform-io",
-  "version": "0.0.2",
+  "name": "@halo-lab/vue-form-hubspot-io",
+  "version": "0.0.1",
   "files": [
     "dist/*"
   ],
   "license": "ISC",
   "repository": {
-    "url": "https://github.com/Halo-Lab/vue-form-getform-io",
+    "url": "https://github.com/Halo-Lab/vue-form-hubspot-io",
     "type": "git"
   },
   "exports": {
-    ".": "./dist/vue-form-getform-io.es.js",
+    ".": "./dist/vue-form-hubspot-io.es.js",
     "./styles": "./dist/style.css"
   },
   "sideEffects": [
@@ -19,11 +19,11 @@
   "type": "module",
   "keywords": [
     "Vue",
-    "getform.io",
+    "Hubspot",
     "integration",
     "form"
   ],
-  "description": "Vue custom form integration with the getform.io service",
+  "description": "Vue custom form integration with the Hubspot service",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -39,8 +39,6 @@
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/test-utils": "^2.3.0",
-    "eslint": "^8.22.0",
-    "eslint-plugin-vue": "^9.3.0",
     "jsdom": "^21.1.0",
     "prettier": "^2.7.1",
     "sass": "^1.58.1",

@@ -1,7 +1,7 @@
 <template>
-  <form 
-    :class="['form', { [className]: className }]" 
-    @submit.prevent="() => onSubmit(submitHandler)" 
+  <form
+    :class="['form', { [className]: className }]"
+    @submit.prevent="() => onSubmit(submitHandler)"
     novalidate
   >
       <slot />
@@ -9,13 +9,18 @@
 </template>
 
 <script>
-import { provide } from "vue";
-import { useForm } from "@/hooks/useForm";
+import { provide } from 'vue';
+import { useForm } from '@/hooks/useForm';
+
 export default {
   props: {
-    formId: {
+    hubspotPortalId: {
       type: String,
-      default: ''
+      default: '',
+    },
+    hubspotFormId: {
+      type: String,
+      default: '',
     },
     className: {
       type: String,
@@ -23,23 +28,23 @@ export default {
     },
     submitHandler: {
       type: Function,
-      default: null
-    }
+      default: null,
+    },
   },
   setup(props) {
-    const { formId } = props;
+    const { hubspotPortalId, hubspotFormId } = props;
     const {
       registerField,
       onSubmit,
       hasFormErrors,
       getFieldError,
       setFieldError,
-    } = useForm(formId);
+    } = useForm(hubspotPortalId, hubspotFormId);
     provide('registerField', registerField);
     provide('getFieldError', getFieldError);
     provide('hasFormErrors', hasFormErrors);
     provide('setFieldError', setFieldError);
-    
+
     return { onSubmit };
   },
 };

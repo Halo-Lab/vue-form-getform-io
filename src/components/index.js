@@ -5,5 +5,4 @@ import Button from "./Button.vue";
 import Select from "./Select.vue";
 import RadioGroup from "./RadioGroup.vue";
 import CheckBoxGroup from './CheckBoxGroup.vue';
-import FileInput from "./FileInput.vue";
-export { Form, Input, TextArea, Button, Select, RadioGroup, CheckBoxGroup, FileInput };
+export { Form, Input, TextArea, Button, Select, RadioGroup, CheckBoxGroup };

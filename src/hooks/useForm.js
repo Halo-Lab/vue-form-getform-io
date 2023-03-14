@@ -2,7 +2,7 @@ import { reactive } from "vue";
 
 import { useField } from "./useField";
 
-export const useForm = (formId) => {
+export const useForm = (portalId, formId) => {
   const formState = reactive({});
   const formStateInitial = {};
   const errors = reactive({});
@@ -40,15 +40,16 @@ export const useForm = (formId) => {
 
     const resetError = () => fieldResetError(setFieldError);
 
-    const fileFieldValidate = (file, validTypes) => fileValidate(file, validTypes, setFieldError)
+    const fileFieldValidate = (file, validTypes) =>
+      fileValidate(file, validTypes, setFieldError);
 
-    formValidator[name] = name.includes('[]') ? fileFieldValidate : validate;
+    formValidator[name] = name.includes("[]") ? fileFieldValidate : validate;
 
     return {
       value,
       validate,
       resetError,
-      fileFieldValidate
+      fileFieldValidate,
     };
   };
 
@@ -72,35 +73,35 @@ export const useForm = (formId) => {
 
     if (!formId) {
       throw new Error(
-        'You did not provaded "formId" or submit callback function. Please, provovide either'
+        'You did not provided "portalId" and "formId" or submit callback function. Please, provide either'
       );
     }
 
-    const URL = "https://getform.io/f/";
-    const formData = new FormData();
+    const URL = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
 
-    for (let key in formState) {
-      if (key.includes("[]")) {
-        formState[key].forEach((value) => {
-          formData.append(key, value);
-        });
-      } else {
-        formData.append(key, formState[key]);
+    const data = [];
+    for (let [key, value] of Object.entries(formState)) {
+      if (Array.isArray(value)) {
+        value = value.join('; ')
       }
+      data.push({ name: key, value})
     }
 
+    const formData = JSON.stringify({ fields: data });
+
     try {
-      await fetch(`${URL}${formId}`, {
+      await fetch(URL, {
         method: "POST",
         body: formData,
-        ContentType: 'multipart/form-data', 
         headers: {
-          Accept: "application/json",
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
         },
       });
     } catch (error) {
       console.log(error);
-    } finally {
+    }
+    finally {
       resetForm();
     }
   };

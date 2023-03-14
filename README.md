@@ -1,4 +1,4 @@
-# @halo-lab/vue-form-getform-io
+# @halo-lab/vue-form-hubspot-io
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -48,6 +48,13 @@ npm install test-title
 
 ### To use the form in the component
 
+- create an account on [Hubspot](https://hubspot.com)`
+
+- add tracking code into your `index.html` (you may use [this link](https://knowledge.hubspot.com/reports/install-the-hubspot-tracking-code) with instructions)
+
+- create a form in your Hubspot account. **Important**: please, make sure that the types of your form can be `text`, `email`, `phone`, or `number` - all types, that can be converted
+ into `string`.
+
 - import all components
 
 ```sh
@@ -57,20 +64,21 @@ import {
   Input,
   TextArea,
   Button
-} from '@halo-lab/vue-form-getform-io'
+} from '@halo-lab/vue-form-hubspot-io'
 ```
 
 - import styles
 
 ```sh
 <style>
-@import "@halo-lab/vue-form-getform-io/styles";
+@import "@halo-lab/vue-form-hubspot-io/styles";
 </style>
 ```
 
 - ### `Form` is the container for all inputs. It accepts next parameters:
 
-  - `:formId` (required parameter, string) - the id of your form on getform). If `submitHandler` is provided, the parameter becomes optional
+  - `:hubspotPortalId` (required parameter, string) - the id of your portal on Hubspot service. If `submitHandler` is provided, the parameter becomes optional
+  - `:hubspotFormId` (required parameter, string) - the id of your form on Hubspot service. If `submitHandler` is provided, the parameter becomes optional
   - `submitHandler` (optional parameter, function) - your custom submit handler (will be responsible for submitting the form on your platform and should receive values of the form). If not provided, `:formId` is required
   - `className` (optional parameter, string) - class name for custom styling
 
@@ -139,19 +147,14 @@ import {
     - `inputClassName` (optional parameter, string) - the class name for custom input styling
     - `inputLabelClassName` (optional parameter, string) - the class name for custom label styling
     - `isDisabled` (optional parameter, boolean) - the flag to make an input field disabled
-
-  - #### `FileInput` - accepts parameters:
-    - `name` (required parameter, string) - the name of an input field
-    - `validTypes` (optional parameter) - the array of strings with valid file extensions
-    - `isMultiple` (optional parameter, boolean) - the flag to accept multiple files
-    - `fieldClassName` (optional parameter, string) - the class name for custom input container styling
-    - `titleClassName` (optional parameter, string) - the class name for the custom label for the entire styling
-    - `textClassName` (optional parameter, string) - the class name for custom text styling
-
+  
   - #### `Button` accepts parameters:
     - `label` (required parameter, string) - the text for the button's label
     - `type` (optional parameter, string) - the type of the button
     - `className` (optional parameter, string) - the class name for custom button styling
+
+
+  **Important:** be sure, that the form structure on your page completely matches the Hubspot form structure (e.g. inputs names and types).
 
 ### Example
 

@@ -15,7 +15,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/components/index.js'),
       name: 'FormVueTest',
-      fileName: (format) => `vue-form-getform-io.${format}.js`,
+      fileName: (format) => `vue-form-hubspot-io.${format}.js`,
     },
     rollupOptions: {
       external: ['vue'],
