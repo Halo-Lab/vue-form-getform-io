@@ -41,9 +41,9 @@ npm run lint
 ### To install the package
 
 ```sh
-yarn add test-title
+yarn add @halo-lab/vue-form-getform-io
 or
-npm install test-title
+npm install @halo-lab/vue-form-getform-io
 ```
 
 ### To use the form in the component
