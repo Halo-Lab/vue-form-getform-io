@@ -1,6 +1,6 @@
 # @halo-lab/vue-form-getform-io
 
-The package supports integration with form service GetForm.io. All you need is either provide `formId` for you GetForm form, or submit callback function to the `Form` component.
+The package supports integration with form service GetForm.io. All you need is either provide `formId` for your GetForm form, or submit callback function to the `Form` component.
 
 ### To install the package
 
